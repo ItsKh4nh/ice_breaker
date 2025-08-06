@@ -1,0 +1,9 @@
+flask
+pylint
+black
+isort
+langchain-openai
+langchain-community
+langchain-ollama
+langchain
+pytest

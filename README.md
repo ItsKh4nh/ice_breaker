@@ -11,14 +11,14 @@
 
 ## 🎯 Overview
 
-**Ice Breaker** is a sophisticated AI-powered web application that creates personalized ice breakers by analyzing LinkedIn profiles. This project serves as a comprehensive learning tool for mastering LangChain while building a practical generative AI application that combines professional profile intelligence with natural language generation.
+**Ice Breaker** is a sophisticated AI-powered web application that creates personalized ice breakers by analyzing LinkedIn profiles. This project serves as a comprehensive learning tool for mastering LangChain while building a practical Generative AI application that combines professional profile intelligence with natural language generation.
 
 ### ✨ Key Features
 
 **AI Pipeline Flow:**
 
 1. 🔍 **Profile Discovery**: Intelligent lookup and discovery of LinkedIn profiles
-2. 🌐 **Data Extraction**: Advanced web scraping of professional and social media data
+2. 🌐 **Data Extraction**: Advanced web scraping of social media data
 3. 🧠 **AI Analysis**: Deep analysis of personality, interests, and professional background
 4. ✍️ **Ice Breaker Generation**: Context-aware creation of personalized conversation starters
 5. 🎨 **Smart Formatting**: Professional presentation of generated content
@@ -26,7 +26,7 @@
 7. 🚀 **Real-time Processing**: Fast end-to-end pipeline from profile input to ice breaker output
 
 
-_Watch Ice Breaker analyze social profiles and generate personalized conversation starters_
+_Ice Breaker intelligently analyzes social profiles to craft tailored, engaging conversation starters that spark meaningful connections._
 
 ## 🛠️ Tech Stack
 
@@ -38,13 +38,13 @@ _Watch Ice Breaker analyze social profiles and generate personalized conversatio
 | 🌐 **Web Search** | Tavily | Enhanced profile discovery |
 | 🤖 **LLM** | OpenAI GPT | Powers the conversation generation |
 | 📊 **Monitoring** | LangSmith | Optional tracing and debugging |
-| 🐍 **Backend** | Python 3.8+ | Core application logic |
+| 🐍 **Backend** | Python 3.10+ | Core application logic |
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-* Python 3.8 or higher
+* Python 3.10 or higher
 * OpenAI API key
 * Scrapin.io API key
 * Tavily API key
@@ -63,12 +63,12 @@ _Watch Ice Breaker analyze social profiles and generate personalized conversatio
 
 3. **Install dependencies**
    ```bash
-   pipenv install
+   pip install -r requirements.txt
    ```
 
 4. **Start the application**
    ```bash
-   pipenv run app.py
+   python app.py
    ```
 
 5. **Open your browser** and navigate to `http://localhost:5000`
@@ -78,22 +78,14 @@ _Watch Ice Breaker analyze social profiles and generate personalized conversatio
 Run the test suite to ensure everything is working correctly:
 
 ```bash
-pipenv run pytest .
+pytest .
 ```
 
-## 💰 API Costs & Credits
+## 💰 API Usage
 
-> **📋 Note**: This project uses paid API services for optimal functionality:
-> 
 > - **[Scrapin.io](https://app.scrapin.io/auth/register)** 💼 - LinkedIn data scraping  
->   *[Sign up for API access](https://app.scrapin.io/auth/register)*
 > 
 > - **[Tavily](https://app.tavily.com)** 🌐 - Enhanced web search and profile discovery  
->   *[Sign up for Tavily API access](https://app.tavily.com)*
-> 
-
-
-> **⚠️ Important**: If you enable LangSmith tracing (`LANGCHAIN_TRACING_V2=true`), ensure you have a valid `LANGCHAIN_API_KEY`. Without it, the application will throw an error. If you don't need tracing, simply omit these variables.
 
 ## 📁 Project Structure
 
@@ -110,12 +102,11 @@ ice_breaker/
 ├── templates/                # Flask HTML templates
 │   └── index.html
 ├── static/                   # Static assets
-│   ├── banner.jpeg
 │   └── demo.gif
 ├── app.py                    # Flask application entry point
 ├── ice_breaker.py           # Core ice breaker logic
 ├── output_parsers.py        # Response formatting utilities
-└── requirements files       # Pipfile, Pipfile.lock
+└── requirements.txt         # Python dependencies
 ```
 
 ## 🔧 Environment Variables
@@ -143,17 +134,3 @@ LANGCHAIN_PROJECT=ice_breaker
 | `LANGCHAIN_TRACING_V2` | Enable LangSmith tracing (optional) | ⚪ |
 | `LANGCHAIN_API_KEY` | LangSmith API key (required if tracing enabled) | ⚪ |
 | `LANGCHAIN_PROJECT` | LangSmith project name (optional) | ⚪ |
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-## 📚 Learning Resources
-
-This project is designed as a comprehensive learning tool for understanding:
-
-* 🦜 **LangChain Framework** - Agent orchestration and chain composition
-* 🔗 **API Integration** - Working with multiple external services
-* 🧠 **AI Application Architecture** - Building production-ready AI systems
-* 🌐 **Web Scraping** - Ethical data collection from social platforms
-* 💬 **Natural Language Generation** - Context-aware content creation
