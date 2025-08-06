@@ -27,14 +27,30 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
             timeout=10,
         )
 
-    data = response.json().get("person")
-    data = {
+    try:
+        response_json = response.json()
+    except (ValueError, requests.exceptions.JSONDecodeError):
+        print(f"Error: Invalid JSON response from API")
+        return {}
+
+    data = response_json.get("person")
+
+    if data is None:
+        print(f"Error: No 'person' data found in API response")
+        print(f"Response content: {response_json}")
+        return {}
+
+    if not isinstance(data, dict):
+        print(f"Error: 'person' data is not a dictionary: {type(data)}")
+        return {}
+
+    filtered_data = {
         k: v
         for k, v in data.items()
         if v not in ([], "", "", None) and k not in ["certifications"]
     }
 
-    return data
+    return filtered_data
 
 
 if __name__ == "__main__":

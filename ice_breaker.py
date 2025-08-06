@@ -19,6 +19,11 @@ def ice_break_with(
     linkedin_url = linkedin_lookup_agent(name=name)
     linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_url)
 
+    if not linkedin_data:
+        raise ValueError(
+            f"Could not retrieve LinkedIn data for: {name}. Please check the name and try again."
+        )
+
     summary_chain = get_summary_chain()
     summary_and_facts: Summary = summary_chain.invoke(
         input={"information": linkedin_data},
