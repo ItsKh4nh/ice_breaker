@@ -2,7 +2,7 @@
 
 **An intelligent ice breaker generator powered by LangChain and social media intelligence**
 
-![Ice Breaker Demo](https://github.com/emarco177/ice_breaker/blob/main/static/demo.gif)
+![Ice Breaker Demo](/static/demo.gif)
 
 [![LangChain](https://img.shields.io/badge/LangChain-🦜🔗-brightgreen)](https://langchain.com/)
 [![Tavily](https://img.shields.io/badge/Tavily-🔍-orange)](https://app.tavily.com/)
@@ -11,13 +11,13 @@
 
 ## 🎯 Overview
 
-**Ice Breaker** is a sophisticated AI-powered web application that creates personalized ice breakers by analyzing LinkedIn and Twitter profiles. This project serves as a comprehensive learning tool for mastering LangChain while building a practical generative AI application that combines social media intelligence with natural language generation.
+**Ice Breaker** is a sophisticated AI-powered web application that creates personalized ice breakers by analyzing LinkedIn profiles. This project serves as a comprehensive learning tool for mastering LangChain while building a practical generative AI application that combines professional profile intelligence with natural language generation.
 
 ### ✨ Key Features
 
 **AI Pipeline Flow:**
 
-1. 🔍 **Profile Discovery**: Intelligent lookup and discovery of LinkedIn and Twitter profiles
+1. 🔍 **Profile Discovery**: Intelligent lookup and discovery of LinkedIn profiles
 2. 🌐 **Data Extraction**: Advanced web scraping of professional and social media data
 3. 🧠 **AI Analysis**: Deep analysis of personality, interests, and professional background
 4. ✍️ **Ice Breaker Generation**: Context-aware creation of personalized conversation starters
@@ -35,7 +35,6 @@ _Watch Ice Breaker analyze social profiles and generate personalized conversatio
 | 🖥️ **Frontend** | Flask | Web application framework |
 | 🧠 **AI Framework** | LangChain 🦜🔗 | Orchestrates the AI pipeline |
 | 🔍 **LinkedIn Data** | Scrapin.io | Professional profile scraping |
-| 🐦 **Twitter Data** | Twitter API | Social media content analysis |
 | 🌐 **Web Search** | Tavily | Enhanced profile discovery |
 | 🤖 **LLM** | OpenAI GPT | Powers the conversation generation |
 | 📊 **Monitoring** | LangSmith | Optional tracing and debugging |
@@ -48,14 +47,13 @@ _Watch Ice Breaker analyze social profiles and generate personalized conversatio
 * Python 3.8 or higher
 * OpenAI API key
 * Scrapin.io API key
-* Twitter API credentials
 * Tavily API key
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/emarco177/ice_breaker.git
+   git clone https://github.com/ItsKh4nh/ice_breaker.git
    cd ice_breaker
    ```
 
@@ -93,8 +91,7 @@ pipenv run pytest .
 > - **[Tavily](https://app.tavily.com)** 🌐 - Enhanced web search and profile discovery  
 >   *[Sign up for Tavily API access](https://app.tavily.com)*
 > 
-> - **Twitter API** 🐦 - Social media content access  
->   *Paid service for accessing Twitter data*
+
 
 > **⚠️ Important**: If you enable LangSmith tracing (`LANGCHAIN_TRACING_V2=true`), ensure you have a valid `LANGCHAIN_API_KEY`. Without it, the application will throw an error. If you don't need tracing, simply omit these variables.
 
@@ -104,12 +101,10 @@ pipenv run pytest .
 ice_breaker/
 ├── agents/                    # AI agents for profile lookup
 │   ├── linkedin_lookup_agent.py
-│   └── twitter_lookup_agent.py
 ├── chains/                    # LangChain custom chains
 │   └── custom_chains.py
 ├── third_parties/            # External API integrations
 │   ├── linkedin.py
-│   └── twitter.py
 ├── tools/                    # Utility tools and functions
 │   └── tools.py
 ├── templates/                # Flask HTML templates
@@ -132,12 +127,6 @@ OPENAI_API_KEY=your_openai_api_key_here
 SCRAPIN_API_KEY=your_scrapin_api_key_here
 TAVILY_API_KEY=your_tavily_api_key_here
 
-# Optional: Twitter scraping (if you want Twitter data)
-TWITTER_API_KEY=your_twitter_api_key_here
-TWITTER_API_SECRET=your_twitter_api_secret_here
-TWITTER_ACCESS_TOKEN=your_twitter_access_token_here
-TWITTER_ACCESS_SECRET=your_twitter_access_secret_here
-
 # Optional: Enable LangSmith tracing
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_API_KEY=your_langsmith_api_key_here
@@ -151,10 +140,6 @@ LANGCHAIN_PROJECT=ice_breaker
 | `OPENAI_API_KEY` | Your OpenAI API key for LLM access | ✅ |
 | `SCRAPIN_API_KEY` | Scrapin.io API key for LinkedIn scraping | ✅ |
 | `TAVILY_API_KEY` | Tavily API key for enhanced web search | ✅ |
-| `TWITTER_API_KEY` | Twitter API key for social data access (optional) | ⚪ |
-| `TWITTER_API_SECRET` | Twitter API secret (optional) | ⚪ |
-| `TWITTER_ACCESS_TOKEN` | Twitter access token (optional) | ⚪ |
-| `TWITTER_ACCESS_SECRET` | Twitter access token secret (optional) | ⚪ |
 | `LANGCHAIN_TRACING_V2` | Enable LangSmith tracing (optional) | ⚪ |
 | `LANGCHAIN_API_KEY` | LangSmith API key (required if tracing enabled) | ⚪ |
 | `LANGCHAIN_PROJECT` | LangSmith project name (optional) | ⚪ |
