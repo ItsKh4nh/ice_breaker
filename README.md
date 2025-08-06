@@ -6,8 +6,8 @@
 
 [![LangChain](https://img.shields.io/badge/LangChain-🦜🔗-brightgreen)](https://langchain.com/)
 [![Tavily](https://img.shields.io/badge/Tavily-🔍-orange)](https://app.tavily.com/)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-2.0+-red)](https://flask.palletsprojects.com/)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.0+-red)](https://flask.palletsprojects.com/)
 
 ## 🎯 Overview
 
