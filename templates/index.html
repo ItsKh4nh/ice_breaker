@@ -1,87 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Ice Breaker</title>
-        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chgibb/css-spinners@2.2.1/css/spinner/three-quarters.min.css">
-    </head>
-    <body>
-        <header>
-            <form id="name-form" style="margin: 0 auto">
-                <h1>Ice Breaker</h1>
-                <input type="text" name="name" placeholder="Enter name">
-                <button id="magic-button" type="submit" class="center">Do Your Magic</button>
-            </form>
-        </header>
-        <div id="spinner" style="text-align: center; display: none">
-            <span class="three-quarters-loader" style="width: 100px; height: 100px; border-radius: 50%; border-width: 12px;"></span>
-        </div>
-        <main id="result" style="display: none">
-            <div style="text-align: center">
-                <img id="profile-pic" src="" alt="Profile Picture" style="width: 300px; max-width: 100%; height: auto; border-radius: 50%; margin-bottom: 20px;">
-            </div>
-            <div>
-                <h2>Summary</h2>
-                <p id="summary"></p>
-            </div>
-            <div>
-                <h2>Interesting Facts</h2>
-                <div id="facts"></div>
-            </div>
-            <div>
-                <h2>Ice Breakers</h2>
-                <div id="ice-breakers"></div>
-            </div>
-            <div>
-                <h2>Topics of Interest</h2>
-                <div id="topics-of-interest"></div>
-            </div>
-        </main>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ice Breaker</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@chgibb/css-spinners@2.2.1/css/spinner/three-quarters.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <form id="name-form" style="margin: 0 auto">
+        <h1>Ice Breaker</h1>
+        <input type="text" name="name" placeholder="Enter name" />
+        <button id="magic-button" type="submit" class="center">
+          Do Your Magic
+        </button>
+      </form>
+    </header>
+    <div id="spinner" style="text-align: center; display: none">
+      <span
+        class="three-quarters-loader"
+        style="
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          border-width: 12px;
+        "
+      ></span>
+    </div>
+    <div
+      id="error-message"
+      style="
+        display: none;
+        text-align: center;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffebee;
+        border: 1px solid #f44336;
+        border-radius: 5px;
+        color: #c62828;
+        max-width: 600px;
+      "
+    >
+      <h3 style="margin-top: 0; color: #c62828">Error</h3>
+      <p id="error-text"></p>
+      <button id="retry-button" style="margin-top: 10px">Try Again</button>
+    </div>
+    <main id="result" style="display: none">
+      <div style="text-align: center">
+        <img
+          id="profile-pic"
+          src=""
+          alt="Profile Picture"
+          style="
+            width: 300px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+          "
+        />
+      </div>
+      <div>
+        <h2>Summary</h2>
+        <p id="summary"></p>
+      </div>
+      <div>
+        <h2>Interesting Facts</h2>
+        <div id="facts"></div>
+      </div>
+      <div>
+        <h2>Ice Breakers</h2>
+        <div id="ice-breakers"></div>
+      </div>
+      <div>
+        <h2>Topics of Interest</h2>
+        <div id="topics-of-interest"></div>
+      </div>
+    </main>
 
-        <script>
-            const form = document.getElementById("name-form");
-            const spinner = document.getElementById("spinner");
-            const result = document.getElementById("result");
+    <script>
+      const form = document.getElementById("name-form");
+      const spinner = document.getElementById("spinner");
+      const result = document.getElementById("result");
+      const errorMessage = document.getElementById("error-message");
+      const errorText = document.getElementById("error-text");
+      const retryButton = document.getElementById("retry-button");
 
-            form.addEventListener("submit", (ev) => {
-                ev.preventDefault();
+      function hideAllSections() {
+        result.style.display = "none";
+        spinner.style.display = "none";
+        errorMessage.style.display = "none";
+      }
 
-                result.style.display = "none";
-                spinner.style.display = "";
+      function showError(message) {
+        hideAllSections();
+        errorText.textContent = message;
+        errorMessage.style.display = "block";
+      }
 
-                const formData = new FormData(form);
+      function showLoading() {
+        hideAllSections();
+        spinner.style.display = "block";
+      }
 
-                fetch("/process", {method: "POST", body: formData})
-                    .then(response => {
-                        if (response.ok) return response.json();
-                        throw new Error("POST request failed");
-                    })
-                    .then(data => {
-                        document.getElementById("profile-pic").src = data.picture_url;
-                        document.getElementById("summary").textContent = data.summary_and_facts.summary;
-                        createHtmlList(document.getElementById("facts"), data.summary_and_facts.facts);
-                        createHtmlList(document.getElementById("ice-breakers"), data.ice_breakers.ice_breakers);
-                        createHtmlList(document.getElementById("topics-of-interest"), data.interests.topics_of_interest);
+      function showResults(data) {
+        hideAllSections();
 
-                        spinner.style.display = "none";
-                        result.style.display = "";
-                    })
-            });
+        document.getElementById("profile-pic").src = data.picture_url || "";
+        document.getElementById("summary").textContent =
+          data.summary_and_facts.summary;
+        createHtmlList(
+          document.getElementById("facts"),
+          data.summary_and_facts.facts
+        );
+        createHtmlList(
+          document.getElementById("ice-breakers"),
+          data.ice_breakers.ice_breakers
+        );
+        createHtmlList(
+          document.getElementById("topics-of-interest"),
+          data.interests.topics_of_interest
+        );
 
-            function createHtmlList(element, items)
-            {
-                const ul = document.createElement("ul");
+        result.style.display = "block";
+      }
 
-                items.forEach(item => {
-                    const li = document.createElement("li");
-                    li.textContent = item;
-                    ul.appendChild(li);
-                })
+      function processForm() {
+        const formData = new FormData(form);
+        const name = formData.get("name")?.trim();
 
-                element.innerHTML = "";
-                element.appendChild(ul);
+        if (!name) {
+          showError("Please enter a name to continue.");
+          return;
+        }
+
+        showLoading();
+
+        fetch("/process", { method: "POST", body: formData })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              showResults(data.data);
+            } else {
+              showError(data.error || "An unknown error occurred.");
             }
-        </script>
-    </body>
+          })
+          .catch((error) => {
+            console.error("Network or parsing error:", error);
+            showError(
+              "Unable to connect to the server. Please check your internet connection and try again."
+            );
+          });
+      }
+
+      form.addEventListener("submit", (ev) => {
+        ev.preventDefault();
+        processForm();
+      });
+
+      retryButton.addEventListener("click", () => {
+        processForm();
+      });
+
+      function createHtmlList(element, items) {
+        const ul = document.createElement("ul");
+
+        if (items && Array.isArray(items)) {
+          items.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            ul.appendChild(li);
+          });
+        }
+
+        element.innerHTML = "";
+        element.appendChild(ul);
+      }
+    </script>
+  </body>
 </html>
